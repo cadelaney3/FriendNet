@@ -1,0 +1,168 @@
+{
+    "network": [
+        {
+            "name": "Chris",
+            "friends": [
+                {
+                    "friendName": "Tyler",
+                    "strength": 10
+                },
+                {
+                    "friendName": "Carlos",
+                    "strength": 10
+                },
+                {
+                    "friendName": "Jimothy",
+                    "strength": 2
+                },
+                {
+                    "friendName": "Molecule Man",
+                    "strength": 7
+                }
+            ]
+        },
+        {
+            "name": "Tyler",
+            "friends": [
+                {
+                    "friendName": "Carlos",
+                    "strength": 10
+                },
+                {
+                    "friendName": "Chris",
+                    "strength": 10
+                },
+                {
+                    "friendName": "Harrison",
+                    "strength": 4
+                },
+                {
+                    "friendName": "Winston",
+                    "strength": 8
+                }
+            ]
+        },
+        {
+            "name": "Carlos",
+            "friends": [
+                {
+                    "friendName": "Tyler",
+                    "strength": 10
+                },
+                {
+                    "friendName": "Chris",
+                    "strength": 10
+                },
+                {
+                    "friendName": "Ozamataz",
+                    "strength": 3
+                },
+                {
+                    "friendName": "Janene",
+                    "strength": 5
+                }                
+            ]
+        },
+        {
+            "name": "Ozamataz",
+            "friends": [
+                {
+                    "friendName": "Tyler",
+                    "strength": 8
+                },
+                {
+                    "friendName": "Chris",
+                    "strength": 4
+                },
+                {
+                    "friendName": "Janene",
+                    "strength": 10
+                },
+                {
+                    "friendName": "Molecule Man",
+                    "strength": 9
+                }                
+            ]
+        },
+        {
+            "name": "Molecule Man",
+            "friends": [
+                {
+                    "friendName": "Tyler",
+                    "strength": 1
+                },
+                {
+                    "friendName": "Carlos",
+                    "strength": 7
+                },
+                {
+                    "friendName": "Ozamataz",
+                    "strength": 2
+                },
+                {
+                    "friendName": "Janene",
+                    "strength": 8
+                },
+                {
+                    "friendName": "Jimothy",
+                    "strength": 5
+                }                
+            ]
+        },
+        {
+            "name": "Janene",
+            "friends": [
+                {
+                    "friendName": "Tyler",
+                    "strength": 6
+                },
+                {
+                    "friendName": "Chris",
+                    "strength": 9
+                },
+                {
+                    "friendName": "Ozamataz",
+                    "strength": 7
+                }         
+            ]
+        },
+        {
+            "name": "Harrison",
+            "friends": [
+                {
+                    "friendName": "Jimothy",
+                    "strength": 3
+                },
+                {
+                    "friendName": "Carlos",
+                    "strength": 6
+                },
+                {
+                    "friendName": "Molecule Man",
+                    "strength": 8
+                },
+                {
+                    "friendName": "Janene",
+                    "strength": 1
+                }                
+            ]
+        },
+        {
+            "name": "Jimothy",
+            "friends": [
+                {
+                    "friendName": "Tyler",
+                    "strength": 2
+                },
+                {
+                    "friendName": "Ozamataz",
+                    "strength": 3
+                },
+                {
+                    "friendName": "Janene",
+                    "strength": 10
+                }                
+            ]
+        }
+    ]
+}
