@@ -2,6 +2,7 @@
     "network": [
         {
             "name": "Chris",
+            "intensity": 3,
             "friends": [
                 {
                     "friendName": "Tyler",
@@ -23,6 +24,7 @@
         },
         {
             "name": "Tyler",
+            "intensity": 7,
             "friends": [
                 {
                     "friendName": "Carlos",
@@ -44,6 +46,7 @@
         },
         {
             "name": "Carlos",
+            "intensity": 6,
             "friends": [
                 {
                     "friendName": "Tyler",
@@ -65,6 +68,7 @@
         },
         {
             "name": "Ozamataz",
+            "intensity": 8,
             "friends": [
                 {
                     "friendName": "Tyler",
@@ -86,6 +90,7 @@
         },
         {
             "name": "Molecule Man",
+            "intensity": 10,
             "friends": [
                 {
                     "friendName": "Tyler",
@@ -111,6 +116,7 @@
         },
         {
             "name": "Janene",
+            "intensity": 4,
             "friends": [
                 {
                     "friendName": "Tyler",
@@ -128,6 +134,7 @@
         },
         {
             "name": "Harrison",
+            "intensity": 2,
             "friends": [
                 {
                     "friendName": "Jimothy",
@@ -149,6 +156,7 @@
         },
         {
             "name": "Jimothy",
+            "intensity": 5,
             "friends": [
                 {
                     "friendName": "Tyler",
