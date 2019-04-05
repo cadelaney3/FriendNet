@@ -25,19 +25,24 @@ if __name__ == "__main__":
         network = json.load(read_file)
         fnet = FriendNet(network)
         while(True):
-        print('What ya wanna do?')
-        print('1. Check is user exist')
-        print('2. Check connections between users')
-        print('3. Exit')
-        selection = input('> ')
-        if(selection == 1):
-            user = input('What user? ')
-            fnet.userExists(user)
-        elif(selection == 2):
-            users = input('What users? (separated by a space)')
-            users = users.split()
-            user1 = users[0]
-            user2 = users[1]
-            fnet.userConnection(user1, user2)
+            print('What ya wanna do?')
+            print('1. Check is user exist')
+            print('2. Check connections between users')
+            print('3. Exit')
+            selection = input('> ')
+            if(selection == 1):
+                user = input('What user? ')
+                fnet.userExists(user)
+            elif(selection == 2):
+                users = input('What users? (separated by a space)')
+                users = users.split()
+                user1 = users[0]
+                user2 = users[1]
+                #fnet.userConnection(user1, user2)
+            elif(selection == 3):
+                print('Bye! Ill miss you!')
+                break
+            else:
+                print('ERROR')
     
     print(fnet.userExists("Molecule man"))
