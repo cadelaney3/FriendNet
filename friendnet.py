@@ -99,6 +99,8 @@ class FriendNet:
         for i in range(len(graph)):
             for j in range(len(graph[i])):
                 graph[i][j] = abs(graph[i][j] - 10)
+                if graph[i][j] == 0:
+                    graph[i][j] = 1
 
         src = None
         dest = None
@@ -150,7 +152,11 @@ class FriendNet:
                 else:
                     print(chain[i])
         else:
-            print("There is no chain between {} and {}.".format(user1, user2))
+            if graph[src][dest] == 0:
+                print("There is no chain between {} and {}.".format(user1, user2))
+                return False
+            else:
+                print(user1, " => ", user2)
 
         return True
 
