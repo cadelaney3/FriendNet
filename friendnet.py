@@ -160,6 +160,16 @@ class FriendNet:
 
         return True
 
+    def f(self, i, j, items, F):
+        if F[i][j] < 0:
+            value = 0
+            if j < items[i-1][0]:
+                value = f(i-1, j, items, F)
+            else:
+                value = max(f(i-1, j, items, F), items[i-1][1]+f(i-1, j-items[i-1][0], items, F))
+            F[i][j] = value
+        return F[i][j]
+
 if __name__ == "__main__":
     
     with open("network.json", "r") as read_file:
@@ -182,7 +192,8 @@ if __name__ == "__main__":
         print('1. Check if user exist')
         print('2. Check connections between users')
         print('3. Find best friend chain between users')
-        print('4. Exit')
+        print('4. Throw the best party')
+        print('5. Exit')
         try:
             selection = input('> ')
             selection = int(selection)
@@ -202,6 +213,9 @@ if __name__ == "__main__":
                 user2 = users[1]
                 fnet.bestFriendChain(user1, user2)
             elif(selection == 4):
+                num_people = input('How many people to invite [0-n/all]: ')
+                
+            elif(selection == 5):
                 print('Bye! Ill miss you!')
                 break
             else:
