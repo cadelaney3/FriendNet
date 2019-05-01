@@ -13,6 +13,8 @@
 
 import json
 import math
+from collections import Counter
+import numpy as np
 
 with open("network.json", "r") as read_file:
     network = json.load(read_file)
@@ -141,7 +143,6 @@ class FriendNet:
                     D[v] = D[w] + graph[w][v]
                     path[v] = w
         
-        #self.printPath(path, dest)
         array = [user1]
         chain = self.printPath(path, dest, array)
 
@@ -160,22 +161,65 @@ class FriendNet:
 
         return True
 
+    def knapsackItems(self):
+        values = []
+        for k, v in enumerate(self.network):
+            values.append([v['intensity'], v['maintenance']])
+        return values
+
     def f(self, i, j, items, F):
         if F[i][j] < 0:
             value = 0
             if j < items[i-1][0]:
-                value = f(i-1, j, items, F)
+                value = self.f(i-1, j, items, F)
             else:
-                value = max(f(i-1, j, items, F), items[i-1][1]+f(i-1, j-items[i-1][0], items, F))
+                value = max(self.f(i-1, j, items, F), items[i-1][1]+self.f(i-1, j-items[i-1][0], items, F))
+
             F[i][j] = value
         return F[i][j]
+
+    # this function based on https://beckernick.github.io/dynamic-programming-knapsack
+    def getItemsUsed(self, F, items, W, num_items):
+        items_taken = np.empty(num_items).astype(str)
+        remaining_capacity = W
+        for i in range(len(F)-1, 0, -1):
+            if F[i][remaining_capacity] != F[i-1][remaining_capacity]:
+                items_taken[i-1] = 'Chosen'
+                weight = items[i-1][0]
+                remaining_capacity = remaining_capacity - weight
+            else:
+                items_taken[i-1] = 'Not Chosen'
+        return np.array(items)[np.where(items_taken == 'Chosen')[0], :]
+
+    def bestParty(self, max_weight):
+        items = self.knapsackItems()
+        num_items = len(items)
+        F = []
+        for m in range(len(items)+1):
+            if m == 0:
+                F.append([0]*(max_weight+1))
+            else:
+                F.append([-1]*(max_weight+1))
+                F[m][0] = 0
+        self.f(len(F)-1, max_weight, items, F)
+
+        items_used = self.getItemsUsed(F, items, max_weight, len(items)).tolist()
+
+        print("Your perfect party includes: ", end='')
+        for item in items_used:
+            for k, v in enumerate(self.network):
+                if item[0] == v['intensity'] and item[1] == v['maintenance']:
+                   print(v['name'], " ", end='')
+        print()
+
 
 if __name__ == "__main__":
     
     with open("network.json", "r") as read_file:
         network = json.load(read_file)
         fnet = FriendNet(network)
-        #print(fnet.userGraph())
+        fnet.doF(20)
+        #print(fnet.knapsckItems())
         #graph = fnet.userGraph()
         #dist = fnet.bestFriendChain("Chris", "Janene")
         # path = dist[2]
@@ -186,7 +230,7 @@ if __name__ == "__main__":
         #     fnet.printPath(path, k)
         #     print()
 
-    
+    '''
     while(True):
         print('\nWhat ya wanna do?')
         print('1. Check if user exist')
@@ -213,8 +257,8 @@ if __name__ == "__main__":
                 user2 = users[1]
                 fnet.bestFriendChain(user1, user2)
             elif(selection == 4):
-                num_people = input('How many people to invite [0-n/all]: ')
-                
+                intensity = input('What type of party? [0 (mega chill)- 100 (riot)] ')
+                maintenance = input(')
             elif(selection == 5):
                 print('Bye! Ill miss you!')
                 break
@@ -224,4 +268,4 @@ if __name__ == "__main__":
             print(e)
             print("Error: Bad input. Please enter an nonnegative integer value.")
             pass
-    
+    '''    
