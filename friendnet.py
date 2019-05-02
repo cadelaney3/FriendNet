@@ -13,7 +13,6 @@
 
 import json
 import math
-from collections import Counter
 import numpy as np
 
 with open("network.json", "r") as read_file:
