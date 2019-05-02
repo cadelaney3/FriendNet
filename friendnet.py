@@ -305,7 +305,7 @@ class FriendNet:
                 # there exist a better parnter
                 if(dict2list.index(partnerA) < dict2list.index(hasPartner)):
                     partners[partnerB] = partnerA
-                    print("  %s dumped %s for %s" % (partnerB, hasPartner, partnerA))
+                    print("  %s ditched %s for %s" % (partnerB, hasPartner, partnerA))
                     # old partner is now free
                     if dictA2[hasPartner]:
                         free.append(hasPartner)
