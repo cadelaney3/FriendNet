@@ -14,6 +14,7 @@
 import json
 import math
 import numpy as np
+import copy
 
 with open("network.json", "r") as read_file:
     network = json.load(read_file)
@@ -210,6 +211,7 @@ class FriendNet:
         items = self.knapsackItems()
         num_items = len(items)
         F = []
+        danceLst = []
 
         try:
             # this is driver code for the memoized knapsack function
@@ -231,12 +233,89 @@ class FriendNet:
                     # get the name of the person and print it
                     if item[0] == v['intensity'] and item[1] == v['maintenance']:
                         print(v['name'], " ", end='')
+                        danceLst.append(v['name'])
             print()
-
+            
         except Exception as e:
             print("Value entered must be a non-negative integer. Please try again.")
+        
+        try:
+            isDanceParty = input('Is it a dance party?(y/n) ')
+            if(isDanceParty == 'y'):
+                self.dancePartner(danceLst)
+        except Exception as e:
+            print(e)
 
+    def dancePartner(self, danceLst):
+        dictA = {}
+        dictB = {}
 
+        lstA = danceLst[:len(danceLst)//2]
+        lstB = danceLst[len(danceLst)//2:]
+        #print(lstA)
+        #print(lstB)
+        # if uneven dance partner
+        if(len(lstA) != len(lstB)):
+            if(len(lstA) < len(lstB)):
+                print(lstB[-1], 'dances alone but...')
+                lstB.remove(lstB[-1])
+            else:
+                print(lstA[-1], 'dances alone but...')
+                lstA.remove(lstA[-1])                
+        for user in self.network:
+            #print('1', user['name'])
+            if(user['name'] in lstA):
+                dictA[user['name']]  = lstB
+            if(user['name'] in lstB):
+                dictB[user['name']]  = lstA
+        '''
+        for k, v in dictA.items():
+            for i in v:
+                for user in self.network:
+                    for friend in user['friends']:
+                        if(i == friend['friendName'] and k == user['name']):
+                            print(k, i, friend['friendName'], user['name'])
+                            if(i in v):
+                                v.remove(i)
+                            v.append([friend['friendName'], friend['strength']])
+                    
+                        if(friend['friendName'] not in v and k == user['name']):
+                            if(i in v):
+                                v.remove(i)
+                            v.append([friend['friendName'], 0])
+        '''
+
+        dict1 = sorted(dictA.keys())
+        dict2 = sorted(dictB.keys())
+        free = dict1[:]
+        partners  = {}
+        dictA2 = copy.deepcopy(dictA)
+        dictB2 = copy.deepcopy(dictB)
+        while free:
+            partnerA = free.pop(0)
+            dict1list = dictA2[partnerA]
+            partnerB = dict1list.pop(0)
+            hasPartner = partners.get(partnerB)
+            #doesnt have a partner then they are dance partner
+            if(not hasPartner):
+                partners[partnerB] = partnerA
+                print("  %s and %s" % (partnerA, partnerB))
+            else:
+                dict2list = dictB2[partnerB]
+                # there exist a better parnter
+                if(dict2list.index(partnerA) < dict2list.index(hasPartner)):
+                    partners[partnerB] = partnerA
+                    print("  %s dumped %s for %s" % (partnerB, hasPartner, partnerA))
+                    # old partner is now free
+                    if dictA2[hasPartner]:
+                        free.append(hasPartner)
+                else:
+                    if dict1list:
+                        free.append(partnerA)
+        print('dance together')
+        
+ 
+ 
 if __name__ == "__main__":
     
     with open("network.json", "r") as read_file:
