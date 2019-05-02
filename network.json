@@ -18,7 +18,7 @@
                     "strength": 2
                 },
                 {
-                    "friendName": "Molecule Man",
+                    "friendName": "MoleculeMan",
                     "strength": 7
                 }
             ]
@@ -87,13 +87,13 @@
                     "strength": 10
                 },
                 {
-                    "friendName": "Molecule Man",
+                    "friendName": "MoleculeMan",
                     "strength": 9
                 }                
             ]
         },
         {
-            "name": "Molecule Man",
+            "name": "MoleculeMan",
             "intensity": 10,
             "maintenance": 1,
             "friends": [
@@ -152,7 +152,7 @@
                     "strength": 6
                 },
                 {
-                    "friendName": "Molecule Man",
+                    "friendName": "MoleculeMan",
                     "strength": 8
                 },
                 {

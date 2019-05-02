@@ -71,6 +71,7 @@ class FriendNet:
             print("One or both of the users do not exists or have their name mispelled. Try again.")
             return False
 
+    # gets the path taken between nodes in Djikstra's
     def printPath(self, P, j, endPath):
         if P[j] == -1:
             for k, v in enumerate(self.network):
@@ -85,6 +86,7 @@ class FriendNet:
                 break
         return endPath
 
+    # get minimum distance for a node to another node
     def minD(self, D, num_v, inN):
         minimum = math.inf
         min_i = -1
@@ -95,7 +97,26 @@ class FriendNet:
         
         return min_i
 
+    # get the optimal path between users using Djikstra's algorithm
     def bestFriendChain(self, user1, user2):
+
+        # map user to an index in network
+        src = None
+        dest = None
+        for k, v in enumerate(self.network):
+            if user1.lower() == v['name'].lower():
+                src = k
+            if user2.lower() == v['name'].lower():
+                dest = k
+
+        # check if both users exists. If not, return
+        if src == None:
+            print("User1 does not exist")
+            return False
+        if dest == None:
+            print("User2 does not exist")
+            return False
+        
         graph = self.userGraph()
 
         for i in range(len(graph)):
@@ -104,21 +125,7 @@ class FriendNet:
                 if graph[i][j] == 0:
                     graph[i][j] = 1
 
-        src = None
-        dest = None
-        for k, v in enumerate(self.network):
-            if user1 == v['name']:
-                src = k
-            if user2 == v['name']:
-                dest = k
-
-        if src == None:
-            print("User1 does not exist")
-            return False
-        if dest == None:
-            print("User2 does not exist")
-            return False
-
+        # Start of Djikstra's algorithm
         N = []
         D = [math.inf] * len(graph)
         path = [-1] * len(graph)
@@ -143,16 +150,21 @@ class FriendNet:
                     D[v] = D[w] + graph[w][v]
                     path[v] = w
         
+        # get the chain, initializing with user1
         array = [user1]
         chain = self.printPath(path, dest, array)
 
+        # check if chain between users exists. If it does, print the chain
         if chain != None:
             for i in range(len(chain)):
                 if i != len(chain) - 1:
                     print("{} => ".format(chain[i]), end='')
                 else:
                     print(chain[i])
+
+        # if there is no chain check, check if there is a direct link between the users
         else:
+            # check if no link between users
             if graph[src][dest] == 0:
                 print("There is no chain between {} and {}.".format(user1, user2))
                 return False
@@ -161,12 +173,14 @@ class FriendNet:
 
         return True
 
+    # this gets a list of lists of each person in network's intensity and maintenance
     def knapsackItems(self):
         values = []
         for k, v in enumerate(self.network):
             values.append([v['intensity'], v['maintenance']])
         return values
 
+    # This is knapsack problem using memoization
     def f(self, i, j, items, F):
         if F[i][j] < 0:
             value = 0
@@ -191,26 +205,37 @@ class FriendNet:
                 items_taken[i-1] = 'Not Chosen'
         return np.array(items)[np.where(items_taken == 'Chosen')[0], :]
 
+    # this uses knapsack function and gets items used,
+    # then prints out all list of people to attend the party
     def bestParty(self, max_weight):
         items = self.knapsackItems()
         num_items = len(items)
         F = []
-        for m in range(len(items)+1):
-            if m == 0:
-                F.append([0]*(max_weight+1))
-            else:
-                F.append([-1]*(max_weight+1))
-                F[m][0] = 0
-        self.f(len(F)-1, max_weight, items, F)
 
-        items_used = self.getItemsUsed(F, items, max_weight, len(items)).tolist()
+        try:
+            # this is driver code for the memoized knapsack function
+            for m in range(len(items)+1):
+                if m == 0:
+                    F.append([0]*(max_weight+1))
+                else:
+                    F.append([-1]*(max_weight+1))
+                    F[m][0] = 0
+            self.f(len(F)-1, max_weight, items, F)
 
-        print("Your perfect party includes: ", end='')
-        for item in items_used:
-            for k, v in enumerate(self.network):
-                if item[0] == v['intensity'] and item[1] == v['maintenance']:
-                   print(v['name'], " ", end='')
-        print()
+            # get the items used in optimal solution
+            items_used = self.getItemsUsed(F, items, max_weight, len(items)).tolist()
+
+            print("Your perfect party includes: ", end='')
+            for item in items_used:
+                for k, v in enumerate(self.network):
+                    # if item in knapsack matches same intensity and mainentence in network,
+                    # get the name of the person and print it
+                    if item[0] == v['intensity'] and item[1] == v['maintenance']:
+                        print(v['name'], " ", end='')
+            print()
+
+        except Exception as e:
+            print("Value entered must be a non-negative integer. Please try again.")
 
 
 if __name__ == "__main__":
@@ -218,7 +243,7 @@ if __name__ == "__main__":
     with open("network.json", "r") as read_file:
         network = json.load(read_file)
         fnet = FriendNet(network)
-        fnet.doF(20)
+        #fnet.bestParty(1.85)
         #print(fnet.knapsckItems())
         #graph = fnet.userGraph()
         #dist = fnet.bestFriendChain("Chris", "Janene")
@@ -230,7 +255,7 @@ if __name__ == "__main__":
         #     fnet.printPath(path, k)
         #     print()
 
-    '''
+    
     while(True):
         print('\nWhat ya wanna do?')
         print('1. Check if user exist')
@@ -257,8 +282,8 @@ if __name__ == "__main__":
                 user2 = users[1]
                 fnet.bestFriendChain(user1, user2)
             elif(selection == 4):
-                intensity = input('What type of party? [0 (mega chill)- 100 (riot)] ')
-                maintenance = input(')
+                intensity = int(input('What type of party? [0 (mega chill) - 100 (riot)]: '))
+                fnet.bestParty(intensity)
             elif(selection == 5):
                 print('Bye! Ill miss you!')
                 break
@@ -268,4 +293,4 @@ if __name__ == "__main__":
             print(e)
             print("Error: Bad input. Please enter an nonnegative integer value.")
             pass
-    '''    
+       
