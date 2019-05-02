@@ -177,7 +177,107 @@
                 {
                     "friendName": "Janene",
                     "strength": 10
+                },
+                {
+                    "friendName": "Yolanda",
+                    "strength": 4
                 }                
+            ]
+        },
+        {
+            "name": "Yolanda",
+            "intensity": 8,
+            "maintenance": 8,
+            "friends": [
+                {
+                    "friendName": "Janene",
+                    "strength": 9
+                },
+                {
+                    "friendName": "Winston",
+                    "strength": 8
+                },
+                {
+                    "friendName": "Carlos",
+                    "strength": 4
+                },
+                {
+                    "friendName": "MoleculeMan",
+                    "strength": 6
+                },
+                {
+                    "friendName": "Tyler",
+                    "strength": 5
+                }
+            ]
+        },
+        {
+            "name": "MysteryWoman",
+            "intensity": 10,
+            "maintenance": 1,
+            "friends": [
+                {
+                    "friendName": "MoleculeMan",
+                    "strength": 10
+                },
+                {
+                    "friendName": "Winston",
+                    "strength": 3
+                }
+            ]
+        },
+        {
+            "name": "LadyOfTheLake",
+            "intensity": 3,
+            "maintenance": 2,
+            "friends": [
+                {
+                    "friendName": "Merlin",
+                    "strength": 9
+                },
+                {
+                    "friendName": "KingArthur",
+                    "strength": 10
+                },
+                {
+                    "friendName": "Chris",
+                    "strength": 3
+                },
+                {
+                    "friendName": "Jimothy",
+                    "strength": 6
+                },
+                {
+                    "friendName": "MysteryWoman",
+                    "strength": 5
+                }
+            ]
+        },
+        {
+            "name": "Winston",
+            "intensity": 5,
+            "maintenance": 7,
+            "friends": [
+                {
+                    "friendName": "Janene",
+                    "strength": 9
+                },
+                {
+                    "friendName": "MysteryWoman",
+                    "strength": 10
+                },
+                {
+                    "friendName": "Carlos",
+                    "strength": 4
+                },
+                {
+                    "friendName": "MoleculeMan",
+                    "strength": 9
+                },
+                {
+                    "friendName": "Tyler",
+                    "strength": 5
+                }
             ]
         }
     ]
