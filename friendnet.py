@@ -242,18 +242,6 @@ if __name__ == "__main__":
     with open("network.json", "r") as read_file:
         network = json.load(read_file)
         fnet = FriendNet(network)
-        #fnet.bestParty(1.85)
-        #print(fnet.knapsckItems())
-        #graph = fnet.userGraph()
-        #dist = fnet.bestFriendChain("Chris", "Janene")
-        # path = dist[2]
-        # print("destination\t | \tlink")
-        # print("-" * 30)
-        # for k in range(0, len(graph)):
-        #     print(k, "\t\t |  ", end="")
-        #     fnet.printPath(path, k)
-        #     print()
-
     
     while(True):
         print('\nWhat ya wanna do?')
