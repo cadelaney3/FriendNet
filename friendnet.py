@@ -252,8 +252,9 @@ class FriendNet:
 
         lstA = danceLst[:len(danceLst)//2]
         lstB = danceLst[len(danceLst)//2:]
-        #print(lstA)
-        #print(lstB)
+        print(lstA)
+        print(lstB)
+
         # if uneven dance partner
         if(len(lstA) != len(lstB)):
             if(len(lstA) < len(lstB)):
@@ -261,7 +262,8 @@ class FriendNet:
                 lstB.remove(lstB[-1])
             else:
                 print(lstA[-1], 'dances alone but...')
-                lstA.remove(lstA[-1])                
+                lstA.remove(lstA[-1])    
+        '''            
         for user in self.network:
             #print('1', user['name'])
             if(user['name'] in lstA):
@@ -269,29 +271,46 @@ class FriendNet:
             if(user['name'] in lstB):
                 dictB[user['name']]  = lstA
         '''
-        for k, v in dictA.items():
-            for i in v:
-                for user in self.network:
-                    for friend in user['friends']:
-                        if(i == friend['friendName'] and k == user['name']):
-                            print(k, i, friend['friendName'], user['name'])
-                            if(i in v):
-                                v.remove(i)
-                            v.append([friend['friendName'], friend['strength']])
-                    
-                        if(friend['friendName'] not in v and k == user['name']):
-                            if(i in v):
-                                v.remove(i)
-                            v.append([friend['friendName'], 0])
-        '''
+        # This make a dictionary of prefered dance partners.
+        for user in self.network:
+            preflst = []
+            if(user['name'] in lstA):
+                #lst of friends
+                friendlst = []
+                for friend in user['friends']:
+                    friendlst.append(friend['friendName'])
+                for friend in friendlst:
+                    if(friend in lstB):
+                        preflst.append(friend)
+                for friend in lstB:
+                    if friend not in preflst:
+                        preflst.append(friend)
+                dictA[user['name']] = preflst
+            if(user['name'] in lstB):
+                #lst of friends
+                friendlst = []
+                for friend in user['friends']:
+                    friendlst.append(friend['friendName'])
+                for friend in friendlst:
+                    if(friend in lstA):
+                        preflst.append(friend)
+                for friend in lstA:
+                    if friend not in preflst:
+                        preflst.append(friend)
+                dictB[user['name']] = preflst
 
+        #print(dictA)
+        #print(dictB)
+
+        # Get the prefered dance partners dict sorted
         dict1 = sorted(dictA.keys())
         dict2 = sorted(dictB.keys())
         free = dict1[:]
         partners  = {}
         dictA2 = copy.deepcopy(dictA)
         dictB2 = copy.deepcopy(dictB)
-        while free:
+        # While there are free partners
+        while(free):
             partnerA = free.pop(0)
             dict1list = dictA2[partnerA]
             partnerB = dict1list.pop(0)
@@ -307,10 +326,10 @@ class FriendNet:
                     partners[partnerB] = partnerA
                     print("  %s ditched %s for %s" % (partnerB, hasPartner, partnerA))
                     # old partner is now free
-                    if dictA2[hasPartner]:
+                    if(dictA2[hasPartner]):
                         free.append(hasPartner)
                 else:
-                    if dict1list:
+                    if(dict1list):
                         free.append(partnerA)
         print('dance together')
         
